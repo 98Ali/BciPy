@@ -83,7 +83,7 @@ class RSVPKeyboard(BCIGui):
         self.event_started = False
         kill_other_python_processes()
 
-    def load_items_from_txt(self, _event):
+    def load_items_from_txt(self):
         """Loads user directory names from the data path defined in
         parameters.json, and adds those directory names as items to the user id
         selection combobox."""
@@ -96,8 +96,7 @@ class RSVPKeyboard(BCIGui):
             saved_users = os.listdir('bcipy/' + data_save_loc)
         else:
             raise IOError('User data save location not found')
-        self.comboboxes[0].Clear()
-        self.comboboxes[0].AppendItems(saved_users)
+        return saved_users
 
 
 def run_rsvp_gui():
@@ -164,7 +163,7 @@ def run_rsvp_gui():
 
     # TEXT INPUT
     gui.add_combobox(position=(75, 150), size=(
-        250, 25), action='load_items_from_txt')
+        250, 25), choices=gui.load_items_from_txt())
 
     # IMAGES
     gui.add_image(

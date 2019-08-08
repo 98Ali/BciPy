@@ -88,9 +88,9 @@ class BCIGui(wx.Frame):
         self.static_text.append(static_text)
 
     def add_combobox(self, position: tuple, size: tuple,
-                     action: str = 'default') -> None:
+                     action: str = 'default', choices: tuple = None) -> None:
         """Add combobox."""
-        combobox = wx.ComboBox(self.panel, pos=position, size=size)
+        combobox = wx.ComboBox(self.panel, pos=position, size=size, choices=choices)
         self.comboboxes.append(combobox)
         self.bind_action(action, combobox)
 
