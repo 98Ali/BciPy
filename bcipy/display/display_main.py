@@ -45,7 +45,7 @@ def init_display_window(parameters):
         useFBO=False,
         fullscr=full_screen,
         allowStencil=False,
-        monitor='mainMonitor',
+        monitor=parameters['monitor_name'],
         winType='pyglet', units='norm', waitBlanking=False,
         color=parameters['background_color'])
 

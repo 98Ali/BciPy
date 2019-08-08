@@ -876,5 +876,13 @@
     "helpTip": "What should the name of the main log file be for each BciPy session",
     "recommended_values": "",
     "type": "str"
-  }
+  },
+  "monitor_name": {
+    "value": "mainMonitor",
+    "section": "bci_config",
+    "readableName": "Monitor Name",
+    "helpTip": "Name of Psychopy Monitor Center monitor",
+    "recommended_values": "",
+    "type": "str"
+  } 
 }
