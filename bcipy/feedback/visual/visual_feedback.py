@@ -1,6 +1,6 @@
 from bcipy.feedback.feedback import Feedback
 from psychopy import visual, core
-from bcipy.helpers.stimuli import resize_image
+from bcipy.helpers.stimuli import resize_image, get_image_size
 from enum import Enum
 
 
@@ -103,7 +103,7 @@ class VisualFeedback(Feedback):
                 pos=pos,
                 ori=0.0)
             image_stim.size = resize_image(
-                stimulus, self.display.size, self.height_stim)
+                get_image_size(stimulus), self.display.size, self.height_stim)
             return image_stim
         if stimuli_type == FeedbackType.TEXT:
             return visual.TextStim(

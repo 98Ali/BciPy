@@ -6,7 +6,7 @@ from psychopy import core, visual
 
 from bcipy.acquisition.marker_writer import NullMarkerWriter, MarkerWriter
 from bcipy.helpers.task import SPACE_CHAR
-from bcipy.helpers.stimuli import resize_image
+from bcipy.helpers.stimuli import resize_image, get_image_size
 from bcipy.helpers.system_utils import get_system_info
 from bcipy.helpers.triggers import TriggerCallback, _calibration_trigger
 
@@ -232,7 +232,7 @@ class RSVPDisplay(object):
                     mode='image', height_int=this_stimuli_size)
                 self.sti.image = self.stimuli_sequence[idx]
                 self.sti.size = resize_image(
-                    self.sti.image, self.sti.win.size, this_stimuli_size)
+                    get_image_size(self.sti.image), self.sti.win.size, this_stimuli_size)
                 sti_label = path.splitext(
                     path.basename(self.stimuli_sequence[idx]))[0]
             else:
@@ -340,7 +340,7 @@ class RSVPDisplay(object):
                 mask=None,
                 ori=0.0)
             wait_logo.size = resize_image(
-                'bcipy/static/images/gui_images/bci_cas_logo.png',
+                get_image_size('bcipy/static/images/gui_images/bci_cas_logo.png'),
                 self.window.size, 1)
             wait_logo.draw()
 

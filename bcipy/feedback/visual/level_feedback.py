@@ -1,5 +1,6 @@
 from bcipy.feedback.visual.visual_feedback import VisualFeedback
 from psychopy import visual, core
+from bcipy.helpers.stimuli import resize_image, get_image_size
 
 from typing import Tuple
 
@@ -80,7 +81,7 @@ class LevelFeedback(VisualFeedback):
             resets the position_x and stimuli variables on first call.
         """
         self._reset_stimuli()
-        height, width = self._determine_height_and_width()
+        width, height = self._determine_height_and_width()
 
         # construct the rectangular level shapes and append to stimuli array
         for level in self.level_colors:
@@ -92,7 +93,7 @@ class LevelFeedback(VisualFeedback):
                 fillColor=self.default_message_color,
                 lineColor=self.line_color,
                 pos=position,
-                lineWidth=self.line_width,
+                lineWidth=width * 0.1,
                 ori=0.0)
             self.stimuli.append(rect)
 
@@ -115,7 +116,7 @@ class LevelFeedback(VisualFeedback):
         Defines the height and width of level stimuli. Currently, a static
             set of variables.
         """
-        return self.width, self.height
+        return resize_image([self.width, self.height], self.display.size, 0.3)
 
     def _reset_stimuli(self) -> None:
         """Reset Stimuli.

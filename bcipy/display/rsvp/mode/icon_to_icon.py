@@ -1,6 +1,6 @@
 from psychopy import visual
 from bcipy.display.rsvp.display import RSVPDisplay
-from bcipy.helpers.stimuli import resize_image
+from bcipy.helpers.stimuli import resize_image, get_image_size
 
 
 class IconToIconDisplay(RSVPDisplay):
@@ -133,7 +133,7 @@ class IconToIconDisplay(RSVPDisplay):
             self.task.image = image_path
 
             image_width, image_height = resize_image(
-                image_path,
+                get_image_size(image_path),
                 window_size,
                 task_height)
 

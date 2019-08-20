@@ -1,5 +1,5 @@
 from bcipy.helpers.load import load_txt_data
-from bcipy.helpers.stimuli import resize_image, play_sound
+from bcipy.helpers.stimuli import resize_image, play_sound, get_image_size
 import csv
 from typing import TextIO, List, Tuple
 
@@ -71,7 +71,7 @@ def _calibration_trigger(experiment_clock: core.Clock,
                 mask=None,
                 ori=0.0)
             calibration_box.size = resize_image(
-                'bcipy/static/images/testing_images/white.png',
+                get_image_size('bcipy/static/images/testing_images/white.png'),
                 display.size, 0.75)
 
             display.callOnFlip(
