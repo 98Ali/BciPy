@@ -7,7 +7,7 @@ import time
 from queue import Empty
 
 from bcipy.acquisition import buffer_server
-from bcipy.acquisition.processor import FileWriter
+from bcipy.acquisition.processor import NullProcessor
 from bcipy.acquisition.record import Record
 from bcipy.acquisition.util import StoppableProcess
 from bcipy.acquisition.marker_writer import NullMarkerWriter, LslMarkerWriter
@@ -55,23 +55,28 @@ class DataAcquisitionClient:
             writes to a file.)
         buffer_name : str, optional
             Name of the sql database archive; default is buffer.db.
+        raw_data_file_name: str,
+            Name of the raw data csv file to output; if not present raw data
+                is not written.
         clock : Clock, optional
             Clock instance used to timestamp each acquisition record
         delete_archive: boolean, optional
             Flag indicating whether to delete the database archive on exit.
-            Default is True.
+            Default is False.
     """
 
     def __init__(self,
                  device,
-                 processor=FileWriter(filename='rawdata.csv'),
-                 buffer_name='buffer.db',
+                 processor=NullProcessor(),
+                 buffer_name='raw_data.db',
+                 raw_data_file_name='raw_data.csv',
                  clock=CountClock(),
                  delete_archive=True):
 
         self._device = device
         self._processor = processor
         self._buffer_name = buffer_name
+        self._raw_data_file_name = raw_data_file_name
         self._clock = clock
 
         # boolean; set to false to retain the sqlite db.
@@ -181,6 +186,11 @@ class DataAcquisitionClient:
         self._data_processor.stop()
         self.marker_writer.cleanup()
         self.marker_writer = NullMarkerWriter()
+
+        if self._raw_data_file_name and self._buf:
+            buffer_server.dump_data(self._buf, self._raw_data_file_name,
+                                    self.device_info.name, self.device_info.fs)
+
 
     def get_data(self, start=None, end=None, field='_rowid_'):
         """Queries the buffer by field.
@@ -419,3 +429,57 @@ class DataProcessor(StoppableProcess):
                 except Empty:
                     pass
             log.debug("Total samples processed: %s", str(count))
+            
+
+def main():
+    """Test script."""
+    import sys
+    if sys.version_info >= (3, 0, 0):
+        # Only available in Python 3; allows us to test process code as it
+        # behaves in Windows environments.
+        multiprocessing.set_start_method('spawn')
+
+    import argparse
+    import json
+    from bcipy.acquisition.protocols import registry
+
+    parser = argparse.ArgumentParser()
+    parser.add_argument('-b', '--buffer', default='buffer.db',
+                        help='buffer db name')
+    parser.add_argument('-f', '--filename', default='rawdata.csv')
+    parser.add_argument('-d', '--device', default='DSI',
+                        choices=registry.supported_devices.keys())
+    parser.add_argument('-c', '--channels', default='',
+                        help='comma-delimited list')
+    parser.add_argument('-p', '--params', type=json.loads,
+                        default={'host': '127.0.0.1', 'port': 9000},
+                        help="device connection params; json")
+    args = parser.parse_args()
+
+    device_builder = registry.find_device(args.device)
+
+    # Instantiate and start collecting data
+    dev = device_builder(connection_params=args.params)
+    if args.channels:
+        dev.channels = args.channels.split(',')
+    daq = DataAcquisitionClient(device=dev,
+                                buffer_name=args.buffer,
+                                delete_archive=True)
+
+    daq.start_acquisition()
+
+    # Get data from buffer
+    time.sleep(1)
+
+    print("Number of samples in 1 second: {0}".format(daq.get_data_len()))
+
+    time.sleep(1)
+
+    print("Number of samples in 2 seconds: {0}".format(daq.get_data_len()))
+
+    daq.stop_acquisition()
+    daq.cleanup()
+
+
+if __name__ == "__main__":
+    main()
