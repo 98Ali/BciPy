@@ -1,6 +1,7 @@
 # pylint: disable=no-member
 """GUI for running RSVP tasks"""
 import itertools
+import logging
 import os
 import subprocess
 
@@ -17,6 +18,10 @@ class RSVPKeyboard(BCIGui):
     """GUI for launching the RSVP tasks."""
     event_started = False
     PARAMETER_LOCATION = 'bcipy/parameters/parameters.json'
+    
+    def __init__(self, title, size, background_color):
+        self.logger = logging.getLogger(__name__)
+        super(RSVPKeyboard, self).__init__(title, size, background_color)
 
     def bind_action(self, action: str, btn) -> None:
         if action == 'launch_bci':
@@ -95,7 +100,8 @@ class RSVPKeyboard(BCIGui):
         elif os.path.isdir('bcipy/' + data_save_loc):
             saved_users = os.listdir('bcipy/' + data_save_loc)
         else:
-            raise IOError('User data save location not found')
+            self.logger.debug('User data save location not found')
+            saved_users = []
         return saved_users
 
 
