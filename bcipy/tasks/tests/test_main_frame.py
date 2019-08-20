@@ -47,7 +47,7 @@ class TestDecisionMaker(unittest.TestCase):
         decision, chosen_stimuli = self.decision_maker.decide(
             probability_distribution)
         self.assertTrue(decision)
-        self.assertEqual(chosen_stimuli, [])
+        self.assertEqual(chosen_stimuli, None)
 
     def test_update_with_letter(self):
         """Test update method with letter being the new state"""
