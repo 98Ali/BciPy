@@ -5,8 +5,6 @@ import logging
 from codecs import open as codecsopen
 from json import load as jsonload
 import pickle
-import sqlite3
-import csv
 
 from tkinter.filedialog import askopenfilename, askdirectory
 

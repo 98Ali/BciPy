@@ -368,25 +368,30 @@ def generate_icon_match_images(
 
     return (return_array, return_timing)
 
+
 def get_image_size(image_path: str):
-    # Retrieve image width and height
+    """ Get image size.
+
+    Returns the width and height of an image, given the path to the image.
+    """
     with Image.open(image_path) as pillow_image:
         image_width, image_height = pillow_image.size
     return [image_width, image_height]
-    
+
+
 def resize_image(image_size: tuple, screen_size: tuple, sti_height: int):
     """Resize Image.
 
     Returns the width and height that a given image should be displayed at
     given the screen size, size of the original image, and stimuli height
-    parameter"""
+    parameter (size of the image's largest side, in norms)"""
     # Resize image so that its largest dimension is the stimuli size defined
     # in the parameters file
     if image_size[0] >= image_size[1]:
         proportions = (1, (image_size[1] / image_size[0]))
     else:
         proportions = ((image_size[0] / image_size[1]), 1)
-        
+
     # Adjust image size to scale with monitor size
     screen_width, screen_height = screen_size
     if screen_width >= screen_height:

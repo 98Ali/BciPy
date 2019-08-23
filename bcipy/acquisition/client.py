@@ -191,7 +191,6 @@ class DataAcquisitionClient:
             buffer_server.dump_data(self._buf, self._raw_data_file_name,
                                     self.device_info.name, self.device_info.fs)
 
-
     def get_data(self, start=None, end=None, field='_rowid_'):
         """Queries the buffer by field.
 
@@ -429,7 +428,7 @@ class DataProcessor(StoppableProcess):
                 except Empty:
                     pass
             log.debug("Total samples processed: %s", str(count))
-            
+
 
 def main():
     """Test script."""

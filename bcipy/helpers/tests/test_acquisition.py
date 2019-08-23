@@ -44,7 +44,7 @@ class TestAcquisition(unittest.TestCase):
         client.stop_acquisition()
         client.cleanup()
         server.stop()
-        
+
         self.assertEqual(
             client.device_info.name,
             self.parameters['acq_device'])

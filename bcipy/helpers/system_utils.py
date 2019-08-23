@@ -169,6 +169,7 @@ def auto_str(cls):
     cls.__str__ = __str__
     return cls
 
+
 def kill_other_python_processes():
     """Kills all other running python processes."""
     this_process_id = os.getpid()

@@ -1,6 +1,6 @@
 from bcipy.feedback.visual.visual_feedback import VisualFeedback
 from psychopy import visual, core
-from bcipy.helpers.stimuli import resize_image, get_image_size
+from bcipy.helpers.stimuli import resize_image
 from bcipy.helpers.system_utils import get_system_info
 
 from typing import Tuple

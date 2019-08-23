@@ -4,7 +4,7 @@ import bcipy.acquisition.datastream.generator as generator
 import bcipy.acquisition.protocols.registry as registry
 from bcipy.acquisition.client import DataAcquisitionClient, CountClock
 from bcipy.acquisition.datastream.server import start_socket_server, await_start
-from bcipy.acquisition.processor import NullProcessor, DispatchProcessor
+from bcipy.acquisition.processor import NullProcessor
 from bcipy.acquisition.datastream.lsl_server import LslDataServer
 from bcipy.gui.viewer.processor.viewer_processor import ViewerProcessor
 

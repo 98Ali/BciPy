@@ -18,7 +18,7 @@ class RSVPKeyboard(BCIGui):
     """GUI for launching the RSVP tasks."""
     event_started = False
     PARAMETER_LOCATION = 'bcipy/parameters/parameters.json'
-    
+
     def __init__(self, title, size, background_color):
         self.logger = logging.getLogger(__name__)
         super(RSVPKeyboard, self).__init__(title, size, background_color)

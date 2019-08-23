@@ -4,6 +4,12 @@
 EEG viewer that uses a queue as a data source. Records are retrieved by a
 wx Timer.
 """
+import numpy as np
+from queue import Queue
+import csv
+from matplotlib.backends.backend_wxagg import FigureCanvasWxAgg as FigureCanvas
+from matplotlib.figure import Figure
+import matplotlib.ticker as ticker
 from bcipy.gui.viewer.data_source.filter import downsample_filter, stream_filter
 from bcipy.gui.viewer.ring_buffer import RingBuffer
 from bcipy.gui.viewer.data_source.data_source import QueueDataSource
@@ -11,13 +17,6 @@ from bcipy.acquisition.device_info import DeviceInfo
 import matplotlib
 import wx
 matplotlib.use('WXAgg')
-import matplotlib.ticker as ticker
-from matplotlib.figure import Figure
-from matplotlib.backends.backend_wxagg import FigureCanvasWxAgg as FigureCanvas
-import csv
-from queue import Queue
-
-import numpy as np
 
 
 class EEGFrame(wx.Frame):
