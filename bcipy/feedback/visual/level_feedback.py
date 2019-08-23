@@ -57,13 +57,21 @@ class LevelFeedback(VisualFeedback):
         # indexing starts at zero but position does not ;)
         position -= 1
 
+        width, height = self._determine_height_and_width()
+        highlight_rect = visual.Rect(
+            win=self.display,
+            width=width + self.target_line_width,
+            height=height + self.target_line_width,
+            fillColor=self.feedback_indicator_color,
+            pos=[self.parameters['feedback_pos_x'] - self.padding * position, self.position_y],
+            ori=0.0)
+
         # loop through the levels wanted and construct the stimuli
         for index, color in enumerate(self.level_colors):
             # this is the target indicator level and should stand out of the
             # rest
             if position == index:
-                self.stimuli[index].lineColor = self.feedback_indicator_color
-                self.stimuli[index].lineWidth = get_system_info()['resolution'][0] * self.target_line_width
+                highlight_rect.draw()
             # draw other stimuli elements
             self.stimuli[index].fillColor = color
             self.stimuli[index].draw()
