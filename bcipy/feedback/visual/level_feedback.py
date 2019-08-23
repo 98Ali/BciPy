@@ -63,7 +63,7 @@ class LevelFeedback(VisualFeedback):
             width=width + self.target_line_width,
             height=height + self.target_line_width,
             fillColor=self.feedback_indicator_color,
-            pos=[self.parameters['feedback_pos_x'] - self.padding * position, self.position_y],
+            pos=[self.parameters['feedback_pos_x'] + self.padding * position, self.position_y],
             ori=0.0)
 
         # loop through the levels wanted and construct the stimuli
