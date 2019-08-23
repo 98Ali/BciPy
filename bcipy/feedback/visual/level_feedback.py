@@ -62,7 +62,7 @@ class LevelFeedback(VisualFeedback):
             # rest
             if position == index:
                 self.stimuli[index].lineColor = self.feedback_indicator_color
-                self.stimuli[index].lineWidth = self.target_line_width
+                self.stimuli[index].lineWidth = self.target_line_width * self.display.size[1]
             # draw other stimuli elements
             self.stimuli[index].fillColor = color
             self.stimuli[index].draw()

@@ -723,12 +723,12 @@
     "type": "float"
   },
   "feedback_target_line_width": {
-    "value": "100",
+    "value": "0.1",
     "section": "feedback_config",
     "readableName": "Feedback Target Line Width",
     "helpTip": "The width of target feedback for the level feedback",
     "recommended_values": "",
-    "type": "int"
+    "type": "float"
   },
   "feedback_band_lower_limit": {
     "value": "4",
