@@ -1,6 +1,7 @@
 from bcipy.feedback.visual.visual_feedback import VisualFeedback
 from psychopy import visual, core
 from bcipy.helpers.stimuli import resize_image, get_image_size
+from bcipy.helpers.system_utils import get_system_info
 
 from typing import Tuple
 
@@ -62,7 +63,7 @@ class LevelFeedback(VisualFeedback):
             # rest
             if position == index:
                 self.stimuli[index].lineColor = self.feedback_indicator_color
-                self.stimuli[index].lineWidth = self.target_line_width * self.display.size[1]
+                self.stimuli[index].lineWidth = get_system_info()['resolution'][0] * self.target_line_width
             # draw other stimuli elements
             self.stimuli[index].fillColor = color
             self.stimuli[index].draw()
