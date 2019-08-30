@@ -1,5 +1,6 @@
 import subprocess
 import wx
+import sys
 from bcipy.gui.gui_main import BCIGui
 
 
@@ -52,6 +53,7 @@ gui.add_image(
     path='bcipy/static/images/gui_images/neu.png', position=(550, 0), size=125)
 
 
-# Make the GUI Show now
-gui.show_gui()
-app.MainLoop()
+# Make the GUI Show now if we are not running Pytest
+if "pytest" not in sys.modules:
+    gui.show_gui()
+    app.MainLoop()

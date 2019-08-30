@@ -4,6 +4,7 @@ import matplotlib.pylab as plt
 import numpy as np
 from bcipy.signal.model.inference import inference
 from bcipy.signal.model.mach_learning.train_model import train_pca_rda_kde_model
+import sys
 
 import matplotlib as mpl
 
@@ -52,4 +53,7 @@ lik_r = inference(x_s, letters, model, alp)
 
 plt.plot(np.array(list(range(len(alp)))), lik_r, 'ro')
 plt.xticks(np.array(list(range(len(alp)))), alp)
-plt.show()
+
+# Hide graph if we are running pytest
+if "pytest" not in sys.modules:
+    plt.show()

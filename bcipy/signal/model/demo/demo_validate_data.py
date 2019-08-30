@@ -6,8 +6,9 @@ from scipy.stats import iqr
 from bcipy.helpers.load import read_data_csv, load_experimental_data
 from bcipy.signal.process.filter import bandpass
 from bcipy.signal.model.mach_learning.train_model import train_pca_rda_kde_model
-from bcipy.helpers.bci_task_related import trial_reshaper
+from bcipy.helpers.task import trial_reshaper
 from bcipy.helpers.triggers import trigger_decoder
+import sys
 
 mpl.use('TkAgg')
 
@@ -176,7 +177,9 @@ def _demo_validate_real_data():
     plt.ylabel('p(e|l)')
     plt.xlabel('scores')
 
-    plt.show()
+    # Hide graph if we are running pytest
+    if "pytest" not in sys.modules:
+        plt.show()
 
 
 if __name__ == "__main__":

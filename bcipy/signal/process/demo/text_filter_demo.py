@@ -1,6 +1,7 @@
 from bcipy.signal.process.filter import bandpass
 import numpy as np
 import matplotlib.pyplot as plt
+import sys
 
 
 '''Parameters entered for test here: '''
@@ -57,7 +58,10 @@ plt.figure(1)
 plt.plot(t, xpassband, t, y[0][:xpassband.size])
 plt.title('Sum of Pass-band Cosines')
 plt.legend(('Pass-band signal', 'Filtered Signal'))
-plt.show()
+
+# Hide graph if we are running pytest
+if "pytest" not in sys.modules:
+    plt.show()
 
 # plt.figure(2)
 # plt.plot(t,y[0][:xpassband.size])

@@ -1,5 +1,5 @@
 import numpy as np
-from bcipy.helpers.bci_task_related import trial_reshaper
+from bcipy.helpers.task import trial_reshaper
 from bcipy.helpers.triggers import trigger_decoder
 from os import remove
 import matplotlib.pyplot as plt

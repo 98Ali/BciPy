@@ -3,7 +3,10 @@
 import contextlib
 # prevents pygame from outputting to the console on import.
 with contextlib.redirect_stdout(None):
-    import pygame
+    try:
+        import pygame
+    except:
+        pass
 import json
 import os
 from collections import Counter

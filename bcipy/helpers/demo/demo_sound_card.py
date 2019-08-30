@@ -9,8 +9,8 @@ log = logging.getLogger(__name__)
 # Example: python demo/sound_card_demo.py "../static/sounds/chime.wav"
 
 parser = argparse.ArgumentParser(description=__doc__)
-parser.add_argument("filename", help="audio file to be played back")
-parser.add_argument("-d", "--device", type=int, help="device ID")
+parser.add_argument("filename", nargs="?", default="bcipy/static/sounds/beep.wav", help="audio file to be played back")
+parser.add_argument("-d", "--device", nargs="?", help="device ID")
 args = parser.parse_args()
 
 try:

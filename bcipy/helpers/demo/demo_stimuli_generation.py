@@ -1,4 +1,4 @@
-from bcipy.helpers.stimuli_generation import random_rsvp_calibration_seq_gen, best_case_rsvp_seq_gen
+from bcipy.helpers.stimuli import random_rsvp_calibration_seq_gen, best_case_rsvp_seq_gen
 import numpy as np
 
 
