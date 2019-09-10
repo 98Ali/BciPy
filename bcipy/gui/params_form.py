@@ -92,8 +92,6 @@ class Form(wx.Panel):
         parameters file."""
 
         self.controls = {}
-        self.params = {**self.params, **
-                       convert_keys_to_parameters(get_missing_parameter_keys(self.params, self.json_file))}
         key_dict = self.alphabetizeParameters()
         for key, param_list in key_dict.items():
             self.controls[key] = static_text_control(self, label=key,
